@@ -35,9 +35,20 @@ function draw() {
     const leftEarlobe = keypoints[177];
     const rightEarlobe = keypoints[401];
     
-    fill(255, 255, 0); // 設定為黃色
+    // 繪製左耳環 (垂墜樣式)
+    stroke(200); // 銀色的耳鍊
+    strokeWeight(2);
+    line(leftEarlobe[0], leftEarlobe[1], leftEarlobe[0], leftEarlobe[1] + 30);
+    fill(0, 255, 255); // 青色的寶石
     noStroke();
-    circle(leftEarlobe[0], leftEarlobe[1], 20); // 畫左耳垂
-    circle(rightEarlobe[0], rightEarlobe[1], 20); // 畫右耳垂
+    circle(leftEarlobe[0], leftEarlobe[1] + 30, 15);
+
+    // 繪製右耳環 (垂墜樣式)
+    stroke(200); 
+    strokeWeight(2);
+    line(rightEarlobe[0], rightEarlobe[1], rightEarlobe[0], rightEarlobe[1] + 30);
+    fill(0, 255, 255); 
+    noStroke();
+    circle(rightEarlobe[0], rightEarlobe[1] + 30, 15);
   }
 }
