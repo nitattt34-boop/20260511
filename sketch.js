@@ -1,10 +1,13 @@
 let video;
 let faceMesh;
 let faces = [];
+let earringImg; // 宣告耳環圖片變數
 
 function preload() {
   // 載入 ml5.js v1 的 FaceMesh 模型
   faceMesh = ml5.faceMesh();
+  // 載入耳環圖片 (請確保檔案路徑與名稱正確)
+  earringImg = loadImage('pic/acc1_ring.png');
 }
 
 function setup() {
@@ -23,6 +26,8 @@ function gotFaces(results) {
 }
 
 function draw() {
+  // 確保攝影機畫面繪製基準為左上角
+  imageMode(CORNER);
   // 繪製攝影機畫面
   image(video, 0, 0, width, height);
   
@@ -36,20 +41,13 @@ function draw() {
     const leftEarlobe = face.keypoints[177];
     const rightEarlobe = face.keypoints[401];
     
-    // 繪製左耳環 (垂墜樣式)
-    stroke(200); // 銀色的耳鍊
-    strokeWeight(2);
-    line(leftEarlobe.x, leftEarlobe.y, leftEarlobe.x, leftEarlobe.y + 30);
-    fill(0, 255, 255); // 青色的寶石
-    noStroke();
-    circle(leftEarlobe.x, leftEarlobe.y + 30, 15);
+    // 將圖片基準點設為中心 (CENTER)
+    imageMode(CENTER);
 
-    // 繪製右耳環 (垂墜樣式)
-    stroke(200); 
-    strokeWeight(2);
-    line(rightEarlobe.x, rightEarlobe.y, rightEarlobe.x, rightEarlobe.y + 30);
-    fill(0, 255, 255); 
-    noStroke();
-    circle(rightEarlobe.x, rightEarlobe.y + 30, 15);
+    // 繪製左耳環圖片 (Y座標 +20 讓它稍微往下偏移，掛在耳垂下；長寬暫設為 40x40，可依需求調整)
+    image(earringImg, leftEarlobe.x, leftEarlobe.y + 20, 40, 40);
+
+    // 繪製右耳環圖片
+    image(earringImg, rightEarlobe.x, rightEarlobe.y + 20, 40, 40);
   }
 }
